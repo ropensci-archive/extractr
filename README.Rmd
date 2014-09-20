@@ -1,0 +1,28 @@
+extract
+=======
+
+`extract` is an R package with interfaces to various extraction services, from web APIs and from local software, including:
+
+* [pdfx](http://pdfx.cs.man.ac.uk/usage)
+* ...
+
+## Quick start
+
+Install
+
+```{r install}
+install.packages("devtools")
+devtools::install_github("sckott/extract")
+```
+
+Load the package
+
+```{r}
+library("extract")
+```
+
+### Extract text from pdfx
+
+```{r pdfx}
+
+```
