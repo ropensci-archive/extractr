@@ -12,8 +12,7 @@ LazyLoad: yes
 LazyData: yes
 Imports:
     httr,
-    XML,
-    jsonlite,
+    XML
 Suggests:
     testthat,
     roxygen2,
