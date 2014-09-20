@@ -21,9 +21,9 @@ Load the package
 library("extract")
 ```
 
-### Extract text from pdfx
+### pdfx
 
-```{r pdfx, cache=TRUE}
+```{r pdfx, eval=FALSE}
 path <- "~/github/sac/hovick_work/pdfs/Vaughn1937_Mauritius.pdf"
 (res <- pdfx(file = path))
 ```
