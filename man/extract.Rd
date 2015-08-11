@@ -2,31 +2,36 @@
 % Please edit documentation in R/extract.R
 \name{extract}
 \alias{extract}
-\title{Extract text from a single pdf document.}
+\title{Extract text from a single pdf document}
 \usage{
-extract(path, which, ...)
+extract(path, which = "xpdf", ...)
 }
 \arguments{
 \item{path}{Path to a file}
 
-\item{which}{One of rcamp, gs, or xpdf.}
+\item{which}{One of rcamp, gs, or xpdf (default).}
 
 \item{...}{further args passed on}
 }
 \value{
-An object of class rcamp_char, gs_char, xpdf_char
+An object of class rcamp_extr, gs_extr, xpdf_extr, all share the
+same global class extr
 }
 \description{
-Extract text from a single pdf document.
+Extract text from a single pdf document
 }
 \examples{
 \donttest{
-res <- extract(path, "rcamp")
-res
-res <- extract(path, "gs")
-res
-res <- extract(path, "xpdf")
-res
+path <- system.file("examples", "example1.pdf", package = "extractr")
+xpdf <- extract(path, "xpdf")
+xpdf$meta
+xpdf$data
+gs <- extract(path, "gs")
+gs$meta
+gs$data
+rcamp <- extract(path, "rcamp")
+rcamp$meta
+rcamp$data
 }
 }
 
