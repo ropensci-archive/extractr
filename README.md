@@ -1,26 +1,33 @@
-extract
+extractr
 =======
 
-`extract` is an R package with interfaces to various extraction services, from web APIs and from local software, including:
+`extractr` is an R package with interfaces to various extraction services, from web APIs and from local software, including:
 
 * [pdfx](http://pdfx.cs.man.ac.uk/usage)
 * ...
 
 ## Quick start
 
-Install
+For now, you'll need one pkg that's not on CRAN
+
+
+```r
+install.packages("Rcampdf", repos = "http://datacube.wu.ac.at/", type = "source")
+```
+
+Install `extractr`
 
 
 ```r
 install.packages("devtools")
-devtools::install_github("sckott/extract")
+devtools::install_github("sckott/extractr")
 ```
 
 Load the package
 
 
 ```r
-library("extract")
+library("extractr")
 ```
 
 ### pdfx

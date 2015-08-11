@@ -2,10 +2,6 @@
 #' 
 #' Uses a local tool called Rcamppdf at \url{http://datacube.wu.ac.at/}.
 #' 
-#' @importFrom tm Corpus URISource readPDF
-#' @importFrom plyr rbind.fill
-#' @export
-#' 
 #' @param files (character) Path to a file, or files on your machine.
 #' @param ... Further args passed on to the \code{tm} package, which does the conversion
 #' 
@@ -14,7 +10,7 @@
 #' 
 #' @examples \dontrun{
 #' path <- "~/github/sac/scott/pdfs/ChamberlainEtal2013Ecosphere.pdf"
-#' xpdf(files = path)
+#' res <- xpdf(files = path)
 #' 
 #' paths <- c("~/github/sac/scott/pdfs/BarraquandEtal2014peerj.pdf", 
 #' "~/github/sac/scott/pdfs/Chamberlain&Holland2009Ecology.pdf",
@@ -33,6 +29,7 @@ xpdf <- function(files = NULL, ...)
 }
 
 #' Use pdftotext to get text from a pdf
+#' 
 #' @export
 #' @param path A file path.
 #' @param ... Further command line flags passed to pdftotext. see examples
@@ -44,8 +41,7 @@ pdftotext <- function(path, ...){
   cmds <- list(...)
   cmds <- if(length(cmds)==0) "" else cmds
   path <- path.expand(path)
-  system(sprintf("pdftotext %s out.txt %s", path, cmds))
+  system2(sprintf("pdftotext %s out.txt %s", path, cmds))
   txt <- readLines('out.txt')
-  txt2 <- gsub("\f", "\n", txt)
-  txt2
+  gsub("\f", "\n", txt)
 }
