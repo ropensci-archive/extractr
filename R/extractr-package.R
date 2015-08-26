@@ -17,7 +17,7 @@
 #'  \item pdfx - \url{http://pdfx.cs.man.ac.uk/usage} - Web API
 #' }
 #' 
-#' @importFrom httr GET POST content_type upload_file content
+#' @importFrom httr GET POST content_type upload_file content write_disk
 #' @import XML
 #' @name extractr-package
 #' @aliases extractr
