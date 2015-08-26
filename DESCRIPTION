@@ -2,7 +2,7 @@ Package: extractr
 Title: Extract Text from 'PDFs'
 Description: Extract text from 'PDFs' using various tools, including
     local or web based tools for scanned-type and non-scanned 'PDFs'.
-Version: 0.0.2.9000
+Version: 0.0.2.9200
 Date: 2015-08-11
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")

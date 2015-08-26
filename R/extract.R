@@ -27,6 +27,7 @@ extract <- function(path, which = "xpdf", ...){
 }
 
 extract_rcamp <- function(path, which, ...){
+  check4rcamp()
   path <- path.expand(path)
   res <- paste(Rcampdf::pdf_text(path), collapse = ", ")
   meta <- Rcampdf::pdf_info(path)
@@ -66,6 +67,14 @@ check_pdftotext <- function(x) {
 check_gs <- function(x) {
   chk <- Sys.which("gs")
   if (chk == "") stop("Please install Ghostscript. See ?extract_tools for more", call. = FALSE)
+}
+
+check4rcamp <- function() {
+  if (!requireNamespace("Rcampdf", quietly = TRUE)) {
+    stop("Please install Rcampdf", call. = FALSE)
+  } else {
+    invisible(TRUE)
+  }
 }
 
 #' @export
