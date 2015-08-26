@@ -33,6 +33,7 @@ extract_corpus <- function(paths, which, ...){
 }
 
 extract_tm_rcamp <- function(paths, which, ...){
+  check4rcamp()
   paths <- process_paths(paths)
   out <- Corpus(URISource(paths), readerControl=list(language="en", reader=readPDF(engine="Rcampdf", control=list(...))))
   meta <- get_meta(out)
