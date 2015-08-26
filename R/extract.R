@@ -1,24 +1,40 @@
-#' Extract text from a single pdf document
+#' @title Extract text from a single pdf document
+#' 
+#' @description This function wraps many methods to extract text from 
+#' non-scanned PDFs - no OCR methods used here. Available methods include
+#' xpdf, Ghostscript, the Rcampdf package, and Poppler.
 #' 
 #' @export
-#' @param path Path to a file
-#' @param which One of rcamp, gs, or xpdf (default).
+#' @param path (character) Path to a file
+#' @param which (character) One of rcamp, gs, xpdf (default), or poppler
 #' @param ... further args passed on
-#' @return An object of class rcamp_extr, gs_extr, xpdf_extr, all share the 
-#' same global class extr
+#' @return An object of class \code{rcamp_extr}, \code{gs_extr}, \code{xpdf_extr}, 
+#' or \code{poppler_extr}. All share the same global class \code{extr}
 #' @examples \donttest{
 #' path <- system.file("examples", "example1.pdf", package = "extractr")
+#' 
+#' # xpdf
 #' xpdf <- extract(path, "xpdf")
 #' xpdf$meta
 #' xpdf$data
+#' 
+#' # Ghostscript
 #' gs <- extract(path, "gs")
 #' gs$meta
 #' gs$data
+#' 
+#' # Rcampdf
 #' rcamp <- extract(path, "rcamp")
 #' rcamp$meta
 #' rcamp$data
+#' 
+#' # Poppler
+#' poppler <- extract(path, "poppler")
+#' poppler$meta
+#' poppler$data
 #' }
 extract <- function(path, which = "xpdf", ...){
+  which <- match.arg(which, c("rcamp", "gs", "xpdf", "poppler"))
   fxn <- switch(which, 
          rcamp = extract_rcamp,
          gs = extract_gs,

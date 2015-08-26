@@ -17,8 +17,8 @@
 #'  \item pdfx - \url{http://pdfx.cs.man.ac.uk/usage} - Web API
 #' }
 #' 
-#' @importFrom Rcampdf pdf_text pdf_info
-#' @importFrom Rpoppler PDF_text PDF_info
+#' @importFrom httr GET POST content_type upload_file content
+#' @import XML
 #' @name extractr-package
 #' @aliases extractr
 #' @docType package

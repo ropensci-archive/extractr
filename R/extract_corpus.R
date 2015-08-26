@@ -1,6 +1,5 @@
 #' Extract text from one to many pdf documents into a tm Corpus.
 #'
-#' @importFrom Rcampdf pdf_text pdf_info
 #' @importFrom tm Corpus URISource readPDF
 #' @importFrom plyr rbind.fill
 #'

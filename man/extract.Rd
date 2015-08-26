@@ -7,31 +7,44 @@
 extract(path, which = "xpdf", ...)
 }
 \arguments{
-\item{path}{Path to a file}
+\item{path}{(character) Path to a file}
 
-\item{which}{One of rcamp, gs, or xpdf (default).}
+\item{which}{(character) One of rcamp, gs, xpdf (default), or poppler}
 
 \item{...}{further args passed on}
 }
 \value{
-An object of class rcamp_extr, gs_extr, xpdf_extr, all share the
-same global class extr
+An object of class \code{rcamp_extr}, \code{gs_extr}, \code{xpdf_extr},
+or \code{poppler_extr}. All share the same global class \code{extr}
 }
 \description{
-Extract text from a single pdf document
+This function wraps many methods to extract text from
+non-scanned PDFs - no OCR methods used here. Available methods include
+xpdf, Ghostscript, the Rcampdf package, and Poppler.
 }
 \examples{
 \donttest{
 path <- system.file("examples", "example1.pdf", package = "extractr")
+
+# xpdf
 xpdf <- extract(path, "xpdf")
 xpdf$meta
 xpdf$data
+
+# Ghostscript
 gs <- extract(path, "gs")
 gs$meta
 gs$data
+
+# Rcampdf
 rcamp <- extract(path, "rcamp")
 rcamp$meta
 rcamp$data
+
+# Poppler
+poppler <- extract(path, "poppler")
+poppler$meta
+poppler$data
 }
 }
 
