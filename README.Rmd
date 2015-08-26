@@ -110,22 +110,33 @@ rcamp$meta
 substr(rcamp$data, 1, 200)
 ```
 
+### poppler - Rpoppler
+
+```{r output.lines = 1:10}
+poppler <- extract(path, "poppler")
+poppler$meta
+```
+
+```{r}
+substr(poppler$data, 1, 200)
+```
+
 ## pdfx - A web API
 
-```{r pdfx}
+```{r pdfx, eval=FALSE}
 path <- system.file("examples", "example1.pdf", package = "extractr")
 res <- pdfx(file = path)
 ```
 
 The metadata
 
-```{r output.lines = 1:10}
+```{r output.lines = 1:10, eval=FALSE}
 res$meta
 ```
 
 The extracted text
 
-```{r output.lines = 1:15}
+```{r output.lines = 1:15, eval=FALSE}
 res$data   
 ```
 

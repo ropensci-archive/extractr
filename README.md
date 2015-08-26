@@ -9,6 +9,7 @@ extractr
 * [Ghostscript](http://www.ghostscript.com/)
 * [Rcampdf](http://datacube.wu.ac.at/)
 * [pdfx](http://pdfx.cs.man.ac.uk/usage)
+* [Poppler](http://poppler.freedesktop.org/)
 * more to come ...
 
 ## Installation
@@ -75,7 +76,7 @@ Since the character string is very long, we'll just print a few hundred characte
 
 ```r
 substr(xpdf$data, 1, 200)
-#> [1] "Suffering and mental health among older people living in nursing homes--a mixed-methods study, Jorunn Drageset1,2, Elin Dysvik3, Birgitte Espehaug1, Gerd Karin Natvig2 and Bodil Furnes3, 1 Faculty of "
+#> [1] "Suffering and mental health among older, people living in nursing homes—a, mixed-methods study, Jorunn Drageset1,2 , Elin Dysvik3 , Birgitte Espehaug1 , Gerd Karin Natvig2, and Bodil Furnes3, 1 Facult"
 ```
 
 ### gs - Ghostscript
@@ -138,6 +139,31 @@ substr(rcamp$data, 1, 200)
 #> [1] "Submitted 31March2015 Accepted 2July2015 Published 30July2015 Corresponding author, JorunnDrageset,, Jorunn.Drageset@hib.no, Academic editor, LiaFernandes, Additional Information and, Declarations can"
 ```
 
+### poppler - Rpoppler
+
+
+```r
+poppler <- extract(path, "poppler")
+poppler$meta
+#> Title:        Suffering and mental health among older people living in nursing homes---a mixed-methods study
+#> Subject:      doi:10.7717/peerj.1120
+#> Keywords:     
+#> Author:       
+#> Creator:      PeerJ
+#> Producer:     pdfTeX-1.40.10
+#> CreationDate: 2015-07-17 20:57:36
+#> ModDate:      2015-07-17 20:57:36
+#> Pages:        18
+#> Page size:    612 x 792 pts [letter]
+...
+```
+
+
+```r
+substr(poppler$data, 1, 200)
+#> [1] "Suffering and mental health among older\npeople living in nursing homes—a\nmixed-methods study\nJorunn Drageset 1,2 , Elin Dysvik 3 , Birgitte Espehaug 1 , Gerd Karin Natvig 2\nand Bodil Furnes 3\n1 Facult"
+```
+
 ## pdfx - A web API
 
 
@@ -151,17 +177,6 @@ The metadata
 
 ```r
 res$meta
-#> $job
-#> [1] "dc56364e1d52f1fe6a83afbd39a4a9001f71fd16856813cc4c33bf75da539522"
-#> 
-#> $base_name
-#> [1] "ad4"
-#> 
-#> $doi
-#> [1] "10.7717/peerj.1120"
-#> 
-#> $warning
-...
 ```
 
 The extracted text
@@ -169,22 +184,6 @@ The extracted text
 
 ```r
 res$data   
-#> <?xml version="1.0" encoding="UTF-8"?>
-#> <pdfx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pdfx.cs.man.ac.uk/static/article-schema.xsd">
-#>   <meta>
-#>     <job>dc56364e1d52f1fe6a83afbd39a4a9001f71fd16856813cc4c33bf75da539522</job>
-#>     <base_name>ad4</base_name>
-#>     <doi>10.7717/peerj.1120</doi>
-#>     <warning>Name identification was not possible. </warning>
-#>   </meta>
-#>   <article>
-#>     <front class="DoCO:FrontMatter">
-#>       <title-group>
-#>         <article-title class="DoCO:Title" id="1">Suffering and mental health among older people living in nursing homesâa mixed-methods study</article-title>
-#>       </title-group>
-#>       <outsider class="DoCO:TextBox" type="sidenote" id="2">1 2 3</outsider>
-#>       <region class="unknown" id="3">Jorunn Drageset 1,2 , Elin Dysvik 3 , Birgitte Espehaug 1 , Gerd Karin Natvig 2 and Bodil Furnes 3 Faculty of Health and Social Sciences, Bergen University College, Norway Department of Global Public Health and Primary Care, University of Bergen, Norway Department of Health Studies, Faculty of Social Sciences, University of Stavanger, Norway</region>
-...
 ```
 
 
