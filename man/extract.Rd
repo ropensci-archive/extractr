@@ -4,18 +4,18 @@
 \alias{extract}
 \title{Extract text from a single pdf document}
 \usage{
-extract(path, which = "xpdf", ...)
+extract(paths, which = "xpdf", ...)
 }
 \arguments{
-\item{path}{(character) Path to a file}
+\item{paths}{(character) One or more paths to a file}
 
 \item{which}{(character) One of rcamp, gs, xpdf (default), or poppler}
 
 \item{...}{further args passed on}
 }
 \value{
-An object of class \code{rcamp_extr}, \code{gs_extr}, \code{xpdf_extr},
-or \code{poppler_extr}. All share the same global class \code{extr}
+A list or a single object, of class \code{rcamp_extr}, \code{gs_extr},
+\code{xpdf_extr}, or \code{poppler_extr}. All share the same global class \code{extr}
 }
 \description{
 This function wraps many methods to extract text from
@@ -23,7 +23,7 @@ non-scanned PDFs - no OCR methods used here. Available methods include
 xpdf, Ghostscript, the Rcampdf package, and Poppler.
 }
 \examples{
-\donttest{
+\dontrun{
 path <- system.file("examples", "example1.pdf", package = "extractr")
 
 # xpdf
@@ -45,6 +45,12 @@ rcamp$data
 poppler <- extract(path, "poppler")
 poppler$meta
 poppler$data
+
+# Pass many paths at once
+path1 <- system.file("examples", "example1.pdf", package = "extractr")
+path2 <- system.file("examples", "example2.pdf", package = "extractr")
+path3 <- system.file("examples", "example3.pdf", package = "extractr")
+extract(c(path1, path2, path3))
 }
 }
 

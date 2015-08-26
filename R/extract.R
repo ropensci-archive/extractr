@@ -5,12 +5,12 @@
 #' xpdf, Ghostscript, the Rcampdf package, and Poppler.
 #' 
 #' @export
-#' @param path (character) Path to a file
+#' @param paths (character) One or more paths to a file
 #' @param which (character) One of rcamp, gs, xpdf (default), or poppler
 #' @param ... further args passed on
-#' @return An object of class \code{rcamp_extr}, \code{gs_extr}, \code{xpdf_extr}, 
-#' or \code{poppler_extr}. All share the same global class \code{extr}
-#' @examples \donttest{
+#' @return A list or a single object, of class \code{rcamp_extr}, \code{gs_extr}, 
+#' \code{xpdf_extr}, or \code{poppler_extr}. All share the same global class \code{extr}
+#' @examples \dontrun{
 #' path <- system.file("examples", "example1.pdf", package = "extractr")
 #' 
 #' # xpdf
@@ -32,8 +32,14 @@
 #' poppler <- extract(path, "poppler")
 #' poppler$meta
 #' poppler$data
+#' 
+#' # Pass many paths at once
+#' path1 <- system.file("examples", "example1.pdf", package = "extractr")
+#' path2 <- system.file("examples", "example2.pdf", package = "extractr")
+#' path3 <- system.file("examples", "example3.pdf", package = "extractr")
+#' extract(c(path1, path2, path3))
 #' }
-extract <- function(path, which = "xpdf", ...){
+extract <- function(paths, which = "xpdf", ...){
   which <- match.arg(which, c("rcamp", "gs", "xpdf", "poppler"))
   fxn <- switch(which, 
          rcamp = extract_rcamp,
@@ -41,7 +47,11 @@ extract <- function(path, which = "xpdf", ...){
          xpdf = extract_xpdf,
          poppler = extract_poppler
   )
-  fxn(path, ...)
+  if (length(paths) > 1) {
+    lapply(paths, fxn, ...)
+  } else {
+    fxn(paths, ...)
+  }
 }
 
 extract_rcamp <- function(path, which, ...){
