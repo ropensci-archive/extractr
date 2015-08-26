@@ -19,11 +19,13 @@
 #' rcamp$data
 #' }
 extract <- function(path, which = "xpdf", ...){
-  switch(which, 
-         rcamp = extract_rcamp(path, ...),
-         gs = extract_gs(path, ...),
-         xpdf = extract_xpdf(path, ...)
+  fxn <- switch(which, 
+         rcamp = extract_rcamp,
+         gs = extract_gs,
+         xpdf = extract_xpdf,
+         poppler = extract_poppler
   )
+  fxn(path, ...)
 }
 
 extract_rcamp <- function(path, which, ...){
@@ -32,6 +34,14 @@ extract_rcamp <- function(path, which, ...){
   res <- paste(Rcampdf::pdf_text(path), collapse = ", ")
   meta <- Rcampdf::pdf_info(path)
   structure(list(meta = meta, data = res), class = c("rcamp_extr", "extr"), path = path)
+}
+
+extract_poppler <- function(path, which, ...){
+  check4poppler()
+  path <- path.expand(path)
+  res <- paste(Rpoppler::PDF_text(path), collapse = ", ")
+  meta <- Rpoppler::PDF_info(path)
+  structure(list(meta = meta, data = res), class = c("poppler_extr", "extr"), path = path)
 }
 
 extract_gs <- function(path, which, ...){
@@ -72,6 +82,14 @@ check_gs <- function(x) {
 check4rcamp <- function() {
   if (!requireNamespace("Rcampdf", quietly = TRUE)) {
     stop("Please install Rcampdf", call. = FALSE)
+  } else {
+    invisible(TRUE)
+  }
+}
+
+check4poppler <- function() {
+  if (!requireNamespace("Rpoppler", quietly = TRUE)) {
+    stop("Please install Rpoppler; See ?extractr_deps", call. = FALSE)
   } else {
     invisible(TRUE)
   }

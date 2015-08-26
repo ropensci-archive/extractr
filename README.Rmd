@@ -41,6 +41,7 @@ knitr::opts_chunk$set(
 * [Ghostscript](http://www.ghostscript.com/)
 * [Rcampdf](http://datacube.wu.ac.at/)
 * [pdfx](http://pdfx.cs.man.ac.uk/usage)
+* [Poppler](http://poppler.freedesktop.org/)
 * more to come ...
 
 ## Installation
