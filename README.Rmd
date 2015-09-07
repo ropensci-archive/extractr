@@ -123,20 +123,20 @@ substr(poppler$data, 1, 200)
 
 ## pdfx - A web API
 
-```{r pdfx, eval=FALSE}
+```{r pdfx}
 path <- system.file("examples", "example1.pdf", package = "extractr")
 res <- pdfx(file = path)
 ```
 
 The metadata
 
-```{r output.lines = 1:10, eval=FALSE}
+```{r output.lines = 1:10}
 res$meta
 ```
 
 The extracted text
 
-```{r output.lines = 1:15, eval=FALSE}
+```{r output.lines = 1:15}
 res$data   
 ```
 

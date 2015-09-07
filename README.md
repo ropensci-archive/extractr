@@ -177,6 +177,17 @@ The metadata
 
 ```r
 res$meta
+#> $job
+#> [1] "dc56364e1d52f1fe6a83afbd39a4a9001f71fd16856813cc4c33bf75da539522"
+#> 
+#> $base_name
+#> [1] "m6"
+#> 
+#> $doi
+#> [1] "10.7717/peerj.1120"
+#> 
+#> $warning
+...
 ```
 
 The extracted text
@@ -184,6 +195,22 @@ The extracted text
 
 ```r
 res$data   
+#> <?xml version="1.0" encoding="UTF-8"?>
+#> <pdfx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pdfx.cs.man.ac.uk/static/article-schema.xsd">
+#>   <meta>
+#>     <job>dc56364e1d52f1fe6a83afbd39a4a9001f71fd16856813cc4c33bf75da539522</job>
+#>     <base_name>m6</base_name>
+#>     <doi>10.7717/peerj.1120</doi>
+#>     <warning>Name identification was not possible. </warning>
+#>   </meta>
+#>   <article>
+#>     <front class="DoCO:FrontMatter">
+#>       <title-group>
+#>         <article-title class="DoCO:Title" id="1">Suffering and mental health among older people living in nursing homesâa mixed-methods study</article-title>
+#>       </title-group>
+#>       <outsider class="DoCO:TextBox" type="sidenote" id="2">1 2 3</outsider>
+#>       <region class="unknown" id="3">Jorunn Drageset 1,2 , Elin Dysvik 3 , Birgitte Espehaug 1 , Gerd Karin Natvig 2 and Bodil Furnes 3 Faculty of Health and Social Sciences, Bergen University College, Norway Department of Global Public Health and Primary Care, University of Bergen, Norway Department of Health Studies, Faculty of Social Sciences, University of Stavanger, Norway</region>
+...
 ```
 
 

@@ -12,7 +12,7 @@
 #' @return Raw XML text, parsed to XMLInternalDocument, or to html text
 #'
 #' @examples \dontrun{
-#' path <- "~/github/sac/hovick_work/pdfs/Vaughn1937_Mauritius.pdf"
+#' path <- system.file("examples", "example1.pdf", package = "extractr")
 #' pdfx(file = path)
 #' }
 
