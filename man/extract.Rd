@@ -9,19 +9,19 @@ extract(paths, which = "xpdf", ...)
 \arguments{
 \item{paths}{(character) One or more paths to a file}
 
-\item{which}{(character) One of rcamp, gs, xpdf (default), or pdftools}
+\item{which}{(character) One of gs, xpdf (default), or pdftools}
 
 \item{...}{further args passed on}
 }
 \value{
-A list or a single object, of class \code{rcamp_extr}, 
-\code{gs_extr}, \code{xpdf_extr}, or \code{poppler_extr}. All share the 
+A list or a single object, of class \code{gs_extr}, 
+\code{xpdf_extr}, or \code{poppler_extr}. All share the 
 same global class \code{extr}
 }
 \description{
 This function wraps many methods to extract text from 
 non-scanned PDFs - no OCR methods used here. Available methods include
-xpdf, Ghostscript, the Rcampdf package, and Poppler.
+xpdf, Ghostscript, and Poppler via \pkg{pdftools}
 }
 \examples{
 \dontrun{
@@ -36,11 +36,6 @@ xpdf$data
 gs <- extract(path, "gs")
 gs$meta
 gs$data
-
-# Rcampdf
-rcamp <- extract(path, "rcamp")
-rcamp$meta
-rcamp$data
 
 # pdftools
 pdft <- extract(path, "pdftools")

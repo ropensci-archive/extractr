@@ -2,7 +2,7 @@ Package: extractr
 Title: Extract Text from 'PDFs'
 Description: Extract text from 'PDFs' using various tools, including
     local or web based tools for scanned-type and non-scanned 'PDFs'.
-Version: 0.0.4.9310
+Version: 0.0.6.9300
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE
@@ -17,7 +17,7 @@ Imports:
     plyr,
     pdftools
 Suggests:
-    Rcampdf,
+    roxygen2 (>= 5.0.1),
     testthat,
     knitr
 RoxygenNote: 5.0.1

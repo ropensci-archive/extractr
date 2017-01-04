@@ -9,7 +9,7 @@ extract_corpus(paths, which, ...)
 \arguments{
 \item{paths}{Path to a file}
 
-\item{which}{One of rcamp, gs, or xpdf.}
+\item{which}{One of gs, or xpdf.}
 
 \item{...}{further args passed on}
 }
@@ -24,12 +24,10 @@ Extract text from one to many pdf documents into a tm Corpus.
 paths <- c("~/github/sac/scott/pdfs/BarraquandEtal2014peerj.pdf",
 "~/github/sac/scott/pdfs/Chamberlain&Holland2009Ecology.pdf",
 "~/github/sac/scott/pdfs/Revell&Chamberlain2014MEE.pdf")
-res <- extract_corpus(paths, "rcamp")
+res <- extract_corpus(paths, "gs")
 res
 tm::TermDocumentMatrix(res$data)
 
-res <- extract_corpus(path, "gs")
-res
 res <- extract_corpus(path, "xpdf")
 res
 }

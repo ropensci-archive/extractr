@@ -2,14 +2,14 @@
 #' 
 #' @description This function wraps many methods to extract text from 
 #' non-scanned PDFs - no OCR methods used here. Available methods include
-#' xpdf, Ghostscript, the Rcampdf package, and Poppler.
+#' xpdf, Ghostscript, and Poppler via \pkg{pdftools}
 #' 
 #' @export
 #' @param paths (character) One or more paths to a file
-#' @param which (character) One of rcamp, gs, xpdf (default), or pdftools
+#' @param which (character) One of gs, xpdf (default), or pdftools
 #' @param ... further args passed on
-#' @return A list or a single object, of class \code{rcamp_extr}, 
-#' \code{gs_extr}, \code{xpdf_extr}, or \code{poppler_extr}. All share the 
+#' @return A list or a single object, of class \code{gs_extr}, 
+#' \code{xpdf_extr}, or \code{poppler_extr}. All share the 
 #' same global class \code{extr}
 #' 
 #' @examples \dontrun{
@@ -25,11 +25,6 @@
 #' gs$meta
 #' gs$data
 #' 
-#' # Rcampdf
-#' rcamp <- extract(path, "rcamp")
-#' rcamp$meta
-#' rcamp$data
-#' 
 #' # pdftools
 #' pdft <- extract(path, "pdftools")
 #' pdft$meta
@@ -42,10 +37,9 @@
 #' extract(c(path1, path2, path3))
 #' }
 extract <- function(paths, which = "xpdf", ...){
-  which <- match.arg(which, c("rcamp", "gs", "xpdf", "pdftools"))
+  which <- match.arg(which, c("gs", "xpdf", "pdftools"))
   fxn <- switch(
     which, 
-    rcamp = extract_rcamp,
     gs = extract_gs,
     xpdf = extract_xpdf,
     pdftools = extract_pdftools
@@ -55,15 +49,6 @@ extract <- function(paths, which = "xpdf", ...){
   } else {
     fxn(paths, ...)
   }
-}
-
-extract_rcamp <- function(path, which, ...){
-  check4rcamp()
-  path <- path.expand(path)
-  res <- paste(Rcampdf::pdf_text(path), collapse = ", ")
-  meta <- Rcampdf::pdf_info(path)
-  structure(list(meta = meta, data = res), class = c("rcamp_extr", "extr"), 
-            path = path)
 }
 
 extract_pdftools <- function(path, which, ...){
@@ -114,29 +99,12 @@ check_gs <- function(x) {
                       call. = FALSE)
 }
 
-check4rcamp <- function() {
-  if (!requireNamespace("Rcampdf", quietly = TRUE)) {
-    stop("Please install Rcampdf", call. = FALSE)
-  } else {
-    invisible(TRUE)
-  }
-}
-
 check4pdftools <- function() {
   if (!requireNamespace("pdftools", quietly = TRUE)) {
-    stop("Please install pdftools; See ?extractr_deps", call. = FALSE)
+    stop("Please install pdftools", call. = FALSE)
   } else {
     invisible(TRUE)
   }
-}
-
-#' @export
-print.rcamp_extr <- function(x, ...) {
-  cat("<document>", attr(x, "path"), "\n", sep = "")
-  cat("  File size: ", x$meta$`File Size`, "\n", sep = "")
-  cat("  Pages: ", x$meta$`File Size`, "\n", sep = "")
-  cat("  Producer: ", x$meta$Producer, "\n", sep = "")
-  cat("  Creation date: ", x$meta$`File Size`, "\n", sep = "")
 }
 
 #' @export

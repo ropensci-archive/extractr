@@ -2,20 +2,21 @@
 % Please edit documentation in R/xpdf.r
 \name{xpdf}
 \alias{xpdf}
-\title{PDF-to-text conversion using Rcampdf}
+\title{PDF-to-text conversion using XPDF}
 \usage{
 xpdf(files = NULL, ...)
 }
 \arguments{
 \item{files}{(character) Path to a file, or files on your machine.}
 
-\item{...}{Further args passed on to the \code{tm} package, which does the conversion}
+\item{...}{Further args passed on to the \code{tm} package, which does 
+the conversion}
 }
 \value{
 A S3 object of class xpdf with slots for meta and data
 }
 \description{
-Uses a local tool called Rcamppdf at \url{http://datacube.wu.ac.at/}.
+PDF-to-text conversion using XPDF
 }
 \examples{
 \dontrun{

@@ -6,37 +6,25 @@
 #' @export
 #'
 #' @param paths Path to a file
-#' @param which One of rcamp, gs, or xpdf.
+#' @param which One of gs, or xpdf.
 #' @param ... further args passed on
 #' @return A tm Corpus or VCorpus
 #' @examples \donttest{
 #' paths <- c("~/github/sac/scott/pdfs/BarraquandEtal2014peerj.pdf",
 #' "~/github/sac/scott/pdfs/Chamberlain&Holland2009Ecology.pdf",
 #' "~/github/sac/scott/pdfs/Revell&Chamberlain2014MEE.pdf")
-#' res <- extract_corpus(paths, "rcamp")
+#' res <- extract_corpus(paths, "gs")
 #' res
 #' tm::TermDocumentMatrix(res$data)
 #'
-#' res <- extract_corpus(path, "gs")
-#' res
 #' res <- extract_corpus(path, "xpdf")
 #' res
 #' }
-
 extract_corpus <- function(paths, which, ...){
   switch(which,
-         rcamp = extract_tm_rcamp(paths, ...),
          gs = extract_tm_gs(paths, ...),
          xpdf = extract_tm_xpdf(paths, ...)
   )
-}
-
-extract_tm_rcamp <- function(paths, which, ...){
-  check4rcamp()
-  paths <- process_paths(paths)
-  out <- Corpus(URISource(paths), readerControl=list(language="en", reader=readPDF(engine="Rcampdf", control=list(...))))
-  meta <- get_meta(out)
-  structure(list(meta=meta, data=out), class="rcamp")
 }
 
 extract_tm_gs <- function(paths, which, ...){
@@ -73,16 +61,7 @@ process_paths <- function(x){
   path.expand(x)
 }
 
-# #' @export
-# print.rcamp_char <- function(x, ...) {
-#   cat("<document>", attr(x, "path"), "\n", sep = "")
-#   cat("  File size: ", x$meta$`File Size`, "\n", sep = "")
-#   cat("  Pages: ", x$meta$`File Size`, "\n", sep = "")
-#   cat("  Producer: ", x$meta$Producer, "\n", sep = "")
-#   cat("  Creation date: ", x$meta$`File Size`, "\n", sep = "")
-# }
 #
-# #' @export
 # print.gs_char <- function(x, ...) {
 #   cat("<document>", attr(x, "path"), "\n", sep = "")
 #   cat("  Title: ", x$meta$Title, "\n", sep = "")
@@ -90,7 +69,7 @@ process_paths <- function(x){
 #   cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n", sep = "")
 # }
 #
-# #' @export
+#
 # print.xpdf_char <- function(x, ...) {
 #   cat("<document>", attr(x, "path"), "\n", sep = "")
 #   cat("  Pages: ", x$meta$Pages, "\n", sep = "")

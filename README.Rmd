@@ -39,18 +39,11 @@ knitr::opts_chunk$set(
 
 * [XPDF](http://www.foolabs.com/xpdf/)
 * [Ghostscript](http://www.ghostscript.com/)
-* [Rcampdf](http://datacube.wu.ac.at/)
 * [pdfx](http://pdfx.cs.man.ac.uk/usage)
 * [Poppler](http://poppler.freedesktop.org/)
 * more to come ...
 
 ## Installation
-
-For now, you'll need one pkg that's not on CRAN. May remove this dependency in the future. 
-
-```{r eval=FALSE}
-install.packages("Rcampdf", repos = "http://datacube.wu.ac.at/", type = "source")
-```
 
 Install `extractr`
 
@@ -75,7 +68,7 @@ path <- system.file("examples", "example1.pdf", package = "extractr")
 
 ### xpdf
 
-xpdf is the default. The structure of the three method options (`xpdf`, `gs`, `rcamp`) for extracting using the `extract()` function give the same structure back: a simple list, a slot for metadata attached to the PDF, and a slot for data (the extracted text).
+xpdf is the default. The structure of the three method options (`xpdf`, `gs`) for extracting using the `extract()` function give the same structure back: a simple list, a slot for metadata attached to the PDF, and a slot for data (the extracted text).
 
 ```{r output.lines = 1:15}
 xpdf <- extract(path, "xpdf")
@@ -97,17 +90,6 @@ gs$meta
 
 ```{r}
 substr(gs$data, 1, 200)
-```
-
-### rcamp - Rcampdf
-
-```{r output.lines = 1:15}
-rcamp <- extract(path, "rcamp")
-rcamp$meta
-```
-
-```{r}
-substr(rcamp$data, 1, 200)
 ```
 
 ### poppler - Rpoppler
