@@ -2,22 +2,22 @@ Package: extractr
 Title: Extract Text from 'PDFs'
 Description: Extract text from 'PDFs' using various tools, including
     local or web based tools for scanned-type and non-scanned 'PDFs'.
-Version: 0.0.3.9300
-Date: 2015-09-07
+Version: 0.0.4.9310
 Authors@R: person("Scott", "Chamberlain", role = c("aut", "cre"),
     email = "myrmecocystus@gmail.com")
 License: MIT + file LICENSE
-URL: https://github.com/sckott/extractr
-BugReports: http://www.github.com/sckott/extractr/issues
+URL: https://github.com/ropensci/extractr
+BugReports: https://github.com/ropensci/extractr/issues
 LazyLoad: yes
 LazyData: yes
 Imports:
     httr,
     XML,
     tm,
-    plyr
+    plyr,
+    pdftools
 Suggests:
     Rcampdf,
-    Rpoppler,
     testthat,
     knitr
+RoxygenNote: 5.0.1

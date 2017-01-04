@@ -6,10 +6,12 @@
 #' 
 #' @export
 #' @param paths (character) One or more paths to a file
-#' @param which (character) One of rcamp, gs, xpdf (default), or poppler
+#' @param which (character) One of rcamp, gs, xpdf (default), or pdftools
 #' @param ... further args passed on
-#' @return A list or a single object, of class \code{rcamp_extr}, \code{gs_extr}, 
-#' \code{xpdf_extr}, or \code{poppler_extr}. All share the same global class \code{extr}
+#' @return A list or a single object, of class \code{rcamp_extr}, 
+#' \code{gs_extr}, \code{xpdf_extr}, or \code{poppler_extr}. All share the 
+#' same global class \code{extr}
+#' 
 #' @examples \dontrun{
 #' path <- system.file("examples", "example1.pdf", package = "extractr")
 #' 
@@ -28,10 +30,10 @@
 #' rcamp$meta
 #' rcamp$data
 #' 
-#' # Poppler
-#' poppler <- extract(path, "poppler")
-#' poppler$meta
-#' poppler$data
+#' # pdftools
+#' pdft <- extract(path, "pdftools")
+#' pdft$meta
+#' cat(pdft$data)
 #' 
 #' # Pass many paths at once
 #' path1 <- system.file("examples", "example1.pdf", package = "extractr")
@@ -40,12 +42,13 @@
 #' extract(c(path1, path2, path3))
 #' }
 extract <- function(paths, which = "xpdf", ...){
-  which <- match.arg(which, c("rcamp", "gs", "xpdf", "poppler"))
-  fxn <- switch(which, 
-         rcamp = extract_rcamp,
-         gs = extract_gs,
-         xpdf = extract_xpdf,
-         poppler = extract_poppler
+  which <- match.arg(which, c("rcamp", "gs", "xpdf", "pdftools"))
+  fxn <- switch(
+    which, 
+    rcamp = extract_rcamp,
+    gs = extract_gs,
+    xpdf = extract_xpdf,
+    pdftools = extract_pdftools
   )
   if (length(paths) > 1) {
     lapply(paths, fxn, ...)
@@ -59,15 +62,17 @@ extract_rcamp <- function(path, which, ...){
   path <- path.expand(path)
   res <- paste(Rcampdf::pdf_text(path), collapse = ", ")
   meta <- Rcampdf::pdf_info(path)
-  structure(list(meta = meta, data = res), class = c("rcamp_extr", "extr"), path = path)
+  structure(list(meta = meta, data = res), class = c("rcamp_extr", "extr"), 
+            path = path)
 }
 
-extract_poppler <- function(path, which, ...){
-  check4poppler()
+extract_pdftools <- function(path, which, ...){
+  check4pdftools()
   path <- path.expand(path)
-  res <- paste(Rpoppler::PDF_text(path), collapse = ", ")
-  meta <- Rpoppler::PDF_info(path)
-  structure(list(meta = meta, data = res), class = c("poppler_extr", "extr"), path = path)
+  res <- paste(pdftools::pdf_text(path), collapse = ", ")
+  meta <- pdftools::pdf_info(path)
+  structure(list(meta = meta, data = res), class = c("pdftools_extr", "extr"), 
+            path = path)
 }
 
 extract_gs <- function(path, which, ...){
@@ -76,7 +81,8 @@ extract_gs <- function(path, which, ...){
   res <- pdf_text_via_gs(path)
   res <- paste(res, collapse = ", ")
   meta <- pdf_info_via_gs(path)
-  structure(list(meta = meta, data = res), class = c("gs_extr", "extr"), path = path)
+  structure(list(meta = meta, data = res), class = c("gs_extr", "extr"), 
+            path = path)
 }
 
 extract_xpdf <- function(path, which, ...){
@@ -87,7 +93,8 @@ extract_xpdf <- function(path, which, ...){
   newpath <- sub("\\.pdf", ".txt", path)
   res <- paste(readLines(newpath, warn = FALSE), collapse = ", ")
   meta <- pdf_info_via_xpdf(path)
-  structure(list(meta = meta, data = res), class = c("xpdf_extr", "extr"), path = path)
+  structure(list(meta = meta, data = res), class = c("xpdf_extr", "extr"), 
+            path = path)
 }
 
 get_cmds <- function(...){
@@ -97,12 +104,14 @@ get_cmds <- function(...){
 
 check_pdftotext <- function(x) {
   chk <- Sys.which("pdftotext")
-  if (chk == "") stop("Please install xpdf. See ?extract_tools for more", call. = FALSE)
+  if (chk == "") stop("Please install xpdf. See ?extract_tools for more", 
+                      call. = FALSE)
 }
 
 check_gs <- function(x) {
   chk <- Sys.which("gs")
-  if (chk == "") stop("Please install Ghostscript. See ?extract_tools for more", call. = FALSE)
+  if (chk == "") stop("Please install Ghostscript. See ?extract_tools for more", 
+                      call. = FALSE)
 }
 
 check4rcamp <- function() {
@@ -113,9 +122,9 @@ check4rcamp <- function() {
   }
 }
 
-check4poppler <- function() {
-  if (!requireNamespace("Rpoppler", quietly = TRUE)) {
-    stop("Please install Rpoppler; See ?extractr_deps", call. = FALSE)
+check4pdftools <- function() {
+  if (!requireNamespace("pdftools", quietly = TRUE)) {
+    stop("Please install pdftools; See ?extractr_deps", call. = FALSE)
   } else {
     invisible(TRUE)
   }
@@ -135,7 +144,8 @@ print.gs_extr <- function(x, ...) {
   cat("<document>", attr(x, "path"), "\n", sep = "")
   cat("  Title: ", x$meta$Title, "\n", sep = "")
   cat("  Producer: ", x$meta$Producer, "\n", sep = "")
-  cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n", sep = "")
+  cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n", 
+      sep = "")
 }
 
 #' @export
@@ -144,5 +154,6 @@ print.xpdf_extr <- function(x, ...) {
   cat("  Pages: ", x$meta$Pages, "\n", sep = "")
   cat("  Title: ", x$meta$Title, "\n", sep = "")
   cat("  Producer: ", x$meta$Producer, "\n", sep = "")
-  cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n", sep = "")
+  cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n", 
+      sep = "")
 }

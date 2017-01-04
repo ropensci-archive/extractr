@@ -39,7 +39,7 @@ pdfx_POST <- function(file, ...) {
 
 pdfx_GET <- function(input, type="html", write_path, ...) {
   type <- match.arg(type, c('html', "tar.gz"))
-  stopifnot(is(input, "pdfx"))
+  stopifnot(inherits(input, "pdfx"))
   jobid <- input$meta$base_name
   url <- paste0(file.path("http://pdfx.cs.man.ac.uk", jobid), ".", type)
   if (type == "html") {
