@@ -7,26 +7,18 @@ extractr
 
 * [XPDF](http://www.foolabs.com/xpdf/)
 * [Ghostscript](http://www.ghostscript.com/)
-* [Rcampdf](http://datacube.wu.ac.at/)
 * [pdfx](http://pdfx.cs.man.ac.uk/usage)
 * [Poppler](http://poppler.freedesktop.org/)
 * more to come ...
 
 ## Installation
 
-For now, you'll need one pkg that's not on CRAN. May remove this dependency in the future. 
-
-
-```r
-install.packages("Rcampdf", repos = "http://datacube.wu.ac.at/", type = "source")
-```
-
 Install `extractr`
 
 
 ```r
 install.packages("devtools")
-devtools::install_github("sckott/extractr")
+devtools::install_github("ropensci/extractr")
 ```
 
 Load the package
@@ -47,7 +39,7 @@ path <- system.file("examples", "example1.pdf", package = "extractr")
 
 ### xpdf
 
-xpdf is the default. The structure of the three method options (`xpdf`, `gs`, `rcamp`) for extracting using the `extract()` function give the same structure back: a simple list, a slot for metadata attached to the PDF, and a slot for data (the extracted text).
+xpdf is the default. The structure of the three method options (`xpdf`, `gs`) for extracting using the `extract()` function give the same structure back: a simple list, a slot for metadata attached to the PDF, and a slot for data (the extracted text).
 
 
 ```r
@@ -109,59 +101,29 @@ substr(gs$data, 1, 200)
 #> [1] "\n\nSubmitted 31 March 2015\nAccepted 2 July 2015\nPublished 30 July 2015\n\nCorresponding author\nJorunn Drageset,\nJorunn.Drageset@hib.no\n\nAcademic editor\nLia Fernandes\n\nAdditional Information and\nDeclarati"
 ```
 
-### rcamp - Rcampdf
+### poppler - pdftools
 
 
 ```r
-rcamp <- extract(path, "rcamp")
-rcamp$meta
-#> $File
-#> [1] "/Library/Frameworks/R.framework/Versions/3.2/Resources/library/extractr/examples/example1.pdf"
+pdft <- extract(path, "pdftools")
+pdft$meta
+#> $version
+#> [1] "1.4"
 #> 
-#> $`File Size`
-#> [1] "479939 bytes"
+#> $pages
+#> [1] 18
 #> 
-#> $Pages
-#> [1] "18"
+#> $encrypted
+#> [1] FALSE
 #> 
-#> $Author
-#> [1] ""
-#> 
-#> $CreationDate
-#> [1] "2015-07-17 12:27:36 PDT"
-#> 
+#> $linearized
 ...
 ```
 
 
 ```r
-substr(rcamp$data, 1, 200)
-#> [1] "Submitted 31March2015 Accepted 2July2015 Published 30July2015 Corresponding author, JorunnDrageset,, Jorunn.Drageset@hib.no, Academic editor, LiaFernandes, Additional Information and, Declarations can"
-```
-
-### poppler - Rpoppler
-
-
-```r
-poppler <- extract(path, "poppler")
-poppler$meta
-#> Title:        Suffering and mental health among older people living in nursing homes---a mixed-methods study
-#> Subject:      doi:10.7717/peerj.1120
-#> Keywords:     
-#> Author:       
-#> Creator:      PeerJ
-#> Producer:     pdfTeX-1.40.10
-#> CreationDate: 2015-07-17 20:57:36
-#> ModDate:      2015-07-17 20:57:36
-#> Pages:        18
-#> Page size:    612 x 792 pts [letter]
-...
-```
-
-
-```r
-substr(poppler$data, 1, 200)
-#> [1] "Suffering and mental health among older\npeople living in nursing homes—a\nmixed-methods study\nJorunn Drageset 1,2 , Elin Dysvik 3 , Birgitte Espehaug 1 , Gerd Karin Natvig 2\nand Bodil Furnes 3\n1 Facult"
+substr(pdft$data, 1, 200)
+#> [1] "                               Suffering and mental health among older\n                               people living in nursing homes—a\n                               mixed-methods study\n              "
 ```
 
 ## pdfx - A web API
@@ -181,7 +143,7 @@ res$meta
 #> [1] "dc56364e1d52f1fe6a83afbd39a4a9001f71fd16856813cc4c33bf75da539522"
 #> 
 #> $base_name
-#> [1] "m6"
+#> [1] "t"
 #> 
 #> $doi
 #> [1] "10.7717/peerj.1120"
@@ -199,14 +161,14 @@ res$data
 #> <pdfx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://pdfx.cs.man.ac.uk/static/article-schema.xsd">
 #>   <meta>
 #>     <job>dc56364e1d52f1fe6a83afbd39a4a9001f71fd16856813cc4c33bf75da539522</job>
-#>     <base_name>m6</base_name>
+#>     <base_name>t</base_name>
 #>     <doi>10.7717/peerj.1120</doi>
 #>     <warning>Name identification was not possible. </warning>
 #>   </meta>
 #>   <article>
 #>     <front class="DoCO:FrontMatter">
 #>       <title-group>
-#>         <article-title class="DoCO:Title" id="1">Suffering and mental health among older people living in nursing homesâa mixed-methods study</article-title>
+#>         <article-title class="DoCO:Title" id="1">Suffering and mental health among older people living in nursing homes—a mixed-methods study</article-title>
 #>       </title-group>
 #>       <outsider class="DoCO:TextBox" type="sidenote" id="2">1 2 3</outsider>
 #>       <region class="unknown" id="3">Jorunn Drageset 1,2 , Elin Dysvik 3 , Birgitte Espehaug 1 , Gerd Karin Natvig 2 and Bodil Furnes 3 Faculty of Health and Social Sciences, Bergen University College, Norway Department of Global Public Health and Primary Care, University of Bergen, Norway Department of Health Studies, Faculty of Social Sciences, University of Stavanger, Norway</region>
@@ -214,6 +176,15 @@ res$data
 ```
 
 
-## Meta
+## Note
 
 > NOTE: Some of the code in this package has been adapted from the `tm` R package (`GPL-3` licensed), where we've borrowed some of their code for extracting text from PDFs, but have modified the code. 
+
+## Meta
+
+* Please [report any issues or bugs](https://github.com/ropensci/extractr/issues).
+* License: MIT
+* Get citation information for `extractr` in R doing `citation(package = 'extractr')`
+* Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+
+[![rofooter](https://ropensci.org/public_images/github_footer.png)](https://ropensci.org)

@@ -92,15 +92,15 @@ gs$meta
 substr(gs$data, 1, 200)
 ```
 
-### poppler - Rpoppler
+### poppler - pdftools
 
 ```{r output.lines = 1:10}
-poppler <- extract(path, "poppler")
-poppler$meta
+pdft <- extract(path, "pdftools")
+pdft$meta
 ```
 
 ```{r}
-substr(poppler$data, 1, 200)
+substr(pdft$data, 1, 200)
 ```
 
 ## pdfx - A web API
