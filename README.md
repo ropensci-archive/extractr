@@ -1,7 +1,10 @@
 extractr
 =======
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
+
+[![Build Status](https://travis-ci.org/ropensci/extractr.svg?branch=master)](https://travis-ci.org/ropensci/extractr)
 
 `extractr` is an R package with interfaces to various extraction services, from web APIs and from local software, including:
 
