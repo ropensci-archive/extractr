@@ -29,4 +29,3 @@ pdfx(file = path)
 \author{
 Scott Chamberlain {myrmecocystus@gmail.com}
 }
-

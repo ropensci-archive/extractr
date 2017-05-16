@@ -49,4 +49,3 @@ path3 <- system.file("examples", "example3.pdf", package = "extractr")
 extract(c(path1, path2, path3))
 }
 }
-

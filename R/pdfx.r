@@ -31,14 +31,15 @@ pdfx <- function(file = NULL, what = "parsed", ...) {
 
 pdfx_POST <- function(file, ...) {
   url <- "http://pdfx.cs.man.ac.uk"
-  res <- POST(url, config = c(content_type("application/pdf"), ...), body = upload_file(file))
+  res <- POST(url, config = c(content_type("application/pdf"), ...),
+                                                       body = upload_file(file))
   if (!res$status_code == 200) stop("something's wrong", call. = FALSE)
   stopifnot(res$headers$`content-type` == "text/xml")
   content(res, as = "text")
 }
 
 pdfx_GET <- function(input, type="html", write_path, ...) {
-  type <- match.arg(type, c('html', "tar.gz"))
+  type <- match.arg(type, c("html", "tar.gz"))
   stopifnot(inherits(input, "pdfx"))
   jobid <- input$meta$base_name
   url <- paste0(file.path("http://pdfx.cs.man.ac.uk", jobid), ".", type)
@@ -49,7 +50,7 @@ pdfx_GET <- function(input, type="html", write_path, ...) {
   } else {
     res <- GET(url, write_disk(path = write_path), ...)
     if (!res$status_code == 200) stop("something's wrong", call. = FALSE)
-    message(sprintf('tar file written to\n   %s', write_path))
+    message(sprintf("tar file written to\n   %s", write_path))
   }
 }
 
@@ -81,4 +82,6 @@ pdfx_html <- function(input, ...) pdfx_GET(input, "html", ...)
 #' tarfile <- tempfile(fileext = "tar.gz")
 #' pdfx_targz(input = out, write_path = tarfile)
 #' }
-pdfx_targz <- function(input, write_path, ...) pdfx_GET(input, type = "tar.gz", write_path, ...)
+pdfx_targz <- function(input, write_path, ...) {
+  pdfx_GET(input, type = "tar.gz", write_path, ...)
+}

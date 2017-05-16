@@ -11,4 +11,5 @@ appveyor.yml
 README.Rmd
 README.md
 cache
+.lintr
 

@@ -39,7 +39,7 @@
 extract <- function(paths, which = "xpdf", ...){
   which <- match.arg(which, c("gs", "xpdf", "pdftools"))
   fxn <- switch(
-    which, 
+    which,
     gs = extract_gs,
     xpdf = extract_xpdf,
     pdftools = extract_pdftools
@@ -56,7 +56,7 @@ extract_pdftools <- function(path, which, ...){
   path <- path.expand(path)
   res <- paste(pdftools::pdf_text(path), collapse = ", ")
   meta <- pdftools::pdf_info(path)
-  structure(list(meta = meta, data = res), class = c("pdftools_extr", "extr"), 
+  structure(list(meta = meta, data = res), class = c("pdftools_extr", "extr"),
             path = path)
 }
 
@@ -66,7 +66,7 @@ extract_gs <- function(path, which, ...){
   res <- pdf_text_via_gs(path)
   res <- paste(res, collapse = ", ")
   meta <- pdf_info_via_gs(path)
-  structure(list(meta = meta, data = res), class = c("gs_extr", "extr"), 
+  structure(list(meta = meta, data = res), class = c("gs_extr", "extr"),
             path = path)
 }
 
@@ -78,7 +78,7 @@ extract_xpdf <- function(path, which, ...){
   newpath <- sub("\\.pdf", ".txt", path)
   res <- paste(readLines(newpath, warn = FALSE), collapse = ", ")
   meta <- pdf_info_via_xpdf(path)
-  structure(list(meta = meta, data = res), class = c("xpdf_extr", "extr"), 
+  structure(list(meta = meta, data = res), class = c("xpdf_extr", "extr"),
             path = path)
 }
 
@@ -89,13 +89,13 @@ get_cmds <- function(...){
 
 check_pdftotext <- function(x) {
   chk <- Sys.which("pdftotext")
-  if (chk == "") stop("Please install xpdf. See ?extract_tools for more", 
+  if (chk == "") stop("Please install xpdf. See ?extract_tools for more",
                       call. = FALSE)
 }
 
 check_gs <- function(x) {
   chk <- Sys.which("gs")
-  if (chk == "") stop("Please install Ghostscript. See ?extract_tools for more", 
+  if (chk == "") stop("Please install Ghostscript. See ?extract_tools for more",
                       call. = FALSE)
 }
 
@@ -112,7 +112,7 @@ print.gs_extr <- function(x, ...) {
   cat("<document>", attr(x, "path"), "\n", sep = "")
   cat("  Title: ", x$meta$Title, "\n", sep = "")
   cat("  Producer: ", x$meta$Producer, "\n", sep = "")
-  cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n", 
+  cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n",
       sep = "")
 }
 
@@ -122,6 +122,6 @@ print.xpdf_extr <- function(x, ...) {
   cat("  Pages: ", x$meta$Pages, "\n", sep = "")
   cat("  Title: ", x$meta$Title, "\n", sep = "")
   cat("  Producer: ", x$meta$Producer, "\n", sep = "")
-  cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n", 
+  cat("  Creation date: ", as.character(as.Date(x$meta$CreationDate)), "\n",
       sep = "")
 }

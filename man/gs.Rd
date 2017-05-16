@@ -31,4 +31,3 @@ res <- gs(files=paths)
 \author{
 Scott Chamberlain {myrmecocystus@gmail.com}
 }
-

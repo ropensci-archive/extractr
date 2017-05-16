@@ -18,12 +18,13 @@
 #' res <- gs(files=paths)
 #' }
 
-gs <- function(files = NULL, ...)
-{
+gs <- function(files = NULL, ...) {
+
   files_exist(files)
   files <- path.expand(files)
-  out <- Corpus(URISource(files), readerControl=list(reader=readPDF(engine="ghostscript", control=list(...))))
+  out <- Corpus(URISource(files), readerControl =
+            list(reader = readPDF(engine = "ghostscript", control = list(...))))
   meta <- get_meta(out)
-  structure(list(meta=meta, data=out), class="xpdf")
+  structure(list(meta = meta, data = out), class = "xpdf")
 }
 # tm:::pdf_text_via_gs(path.expand(paths[1]))

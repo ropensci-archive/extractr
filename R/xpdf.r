@@ -22,8 +22,8 @@ xpdf <- function(files = NULL, ...) {
   files_exist(files)
   files <- path.expand(files)
   out <- Corpus(
-    URISource(files), 
-    readerControl = list(reader = readPDF(engine = "xpdf", control = list(...))))
+   URISource(files),
+   readerControl = list(reader = readPDF(engine = "xpdf", control = list(...))))
   meta <- get_meta(out)
   structure(list(meta = meta, data = out), class = "xpdf")
 }
@@ -37,11 +37,12 @@ xpdf <- function(files = NULL, ...) {
 #' path <- "~/github/sac/scott/pdfs/ChamberlainEtal2013Ecosphere.pdf"
 #' pdftotext(path)
 #' }
+
 pdftotext <- function(path, ...){
   cmds <- list(...)
   cmds <- if (length(cmds) == 0) "" else cmds
   path <- path.expand(path)
   system2(sprintf("pdftotext %s out.txt %s", path, cmds))
-  txt <- readLines('out.txt')
+  txt <- readLines("out.txt")
   gsub("\f", "\n", txt)
 }

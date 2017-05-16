@@ -20,4 +20,3 @@ path <- "~/github/sac/scott/pdfs/ChamberlainEtal2013Ecosphere.pdf"
 pdftotext(path)
 }
 }
-

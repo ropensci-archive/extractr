@@ -33,4 +33,3 @@ res$data[[3]]
 \author{
 Scott Chamberlain {myrmecocystus@gmail.com}
 }
-

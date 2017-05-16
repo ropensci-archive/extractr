@@ -22,4 +22,3 @@ out <- pdfx(file = path)
 pdfx_html(out)
 }
 }
-

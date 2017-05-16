@@ -19,5 +19,6 @@ Imports:
 Suggests:
     roxygen2 (>= 5.0.1),
     testthat,
-    knitr
-RoxygenNote: 5.0.1
+    knitr,
+    lintr
+RoxygenNote: 6.0.1

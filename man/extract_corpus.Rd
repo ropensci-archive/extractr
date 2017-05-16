@@ -32,4 +32,3 @@ res <- extract_corpus(path, "xpdf")
 res
 }
 }
-

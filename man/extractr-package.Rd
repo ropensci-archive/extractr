@@ -2,8 +2,8 @@
 % Please edit documentation in R/extractr-package.R
 \docType{package}
 \name{extractr-package}
-\alias{extractr}
 \alias{extractr-package}
+\alias{extractr}
 \title{R client for pdf extraction}
 \description{
 R interface to many web and local pdf extraction tools.
@@ -26,8 +26,8 @@ in depth instructions.
  \item pdfx - \url{http://pdfx.cs.man.ac.uk/usage} - Web API
 }
 }
+
 \author{
 Scott Chamberlain \email{myrmecocystus@gmail.com}
 }
 \keyword{package}
-
