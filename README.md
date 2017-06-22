@@ -5,6 +5,7 @@ extractr
 
 
 [![Build Status](https://travis-ci.org/ropensci/extractr.svg?branch=master)](https://travis-ci.org/ropensci/extractr)
+[![codecov.io](https://codecov.io/github/ropensci/extractr/coverage.svg?branch=master)](https://codecov.io/github/ropensci/extractr?branch=master)
 
 `extractr` is an R package with interfaces to various extraction services, from web APIs and from local software, including:
 
